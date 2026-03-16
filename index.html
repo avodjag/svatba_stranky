@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anna & Tomáš — 13. června 2025</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #1A3325;
+      --gray: #5A7A68;
+      --light: #C8DFD0;
+      --white: #F4FAF6;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 300;
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--black);
+      background: var(--white);
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── LANG TOGGLE ── */
+    .lang {
+      display: flex;
+      gap: 0;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+      border: 1px solid var(--light);
+      background: var(--white);
+    }
+    .lang button {
+      padding: 4px 12px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      border: none;
+      background: transparent;
+      color: var(--gray);
+      cursor: pointer;
+    }
+    .lang button.active {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    /* ── HERO — Variant 02: Centered ── */
+    .hero {
+      padding: 80px 0 56px;
+      border-bottom: 1px solid var(--light);
+      text-align: center;
+    }
+    .hero-label {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: clamp(36px, 8vw, 56px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: 0.01em;
+      margin-bottom: 24px;
+    }
+    .hero-rule {
+      width: 40px;
+      height: 1px;
+      background: var(--light);
+      margin: 0 auto 24px;
+    }
+    .hero-meta {
+      font-size: 15px;
+      color: var(--gray);
+    }
+
+    /* ── PHOTOS ── */
+    .photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      margin: 32px 0;
+    }
+    .photos img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+    .photos img:first-child {
+      grid-column: 1 / -1;
+      aspect-ratio: 16/9;
+      object-position: center top;
+    }
+
+    /* ── SECTIONS ── */
+    .block {
+      padding: 48px 0;
+      border-bottom: 1px solid var(--light);
+    }
+    .block:last-child { border-bottom: none; }
+
+    h2 {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 20px;
+    }
+
+    p { margin-bottom: 12px; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── SCHEDULE ── */
+    .schedule { margin-top: 4px; }
+    .schedule-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 16px;
+      padding: 14px 0;
+      border-top: 1px solid var(--light);
+    }
+    .schedule-row:last-child { border-bottom: 1px solid var(--light); }
+    .day { color: var(--gray); font-size: 15px; }
+
+    /* ── NOTE ── */
+    .note {
+      margin-top: 24px;
+      padding: 16px 20px;
+      background: #DFF2E5;
+      font-size: 15px;
+      color: #2E4A39;
+    }
+
+    /* ── INLINE PHOTO ── */
+    .inline-photo {
+      width: 100%;
+      aspect-ratio: 16/7;
+      object-fit: cover;
+      display: block;
+      margin: 32px 0;
+    }
+
+    /* ── RSVP BUTTON ── */
+    .rsvp-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 28px;
+      background: var(--black);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      font-family: inherit;
+      font-weight: 400;
+      transition: opacity 0.2s;
+    }
+    .rsvp-btn:hover { opacity: 0.7; }
+
+    /* ── LINKS ── */
+    a { color: var(--black); }
+    a:hover { color: var(--gray); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px 0;
+      font-size: 13px;
+      color: var(--gray);
+    }
+
+    /* ── LANG VISIBILITY ── */
+    [data-lang]:not(body) { display: none; }
+    body[data-lang="cs"] [data-lang="cs"] { display: revert; }
+    body[data-lang="en"] [data-lang="en"] { display: revert; }
+
+    @media (max-width: 480px) {
+      body { padding: 0 16px; }
+      h1 { font-size: 32px; }
+      .photos { gap: 3px; }
+    }
+  </style>
+</head>
+<body data-lang="cs">
+
+  <div class="lang">
+    <button class="active" id="btn-cs" onclick="setLang('cs')">CZ</button>
+    <button id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+
+  <!-- HERO — Variant 02: Centered -->
+  <header class="hero">
+    <p class="hero-label" data-lang="cs">Zveme vás na naši svatbu</p>
+    <p class="hero-label" data-lang="en">You are invited to our wedding</p>
+    <h1>Anna &amp; Tomáš</h1>
+    <div class="hero-rule"></div>
+    <p class="hero-meta" data-lang="cs">Sobota, 13. června 2025 · Horní Bečva</p>
+    <p class="hero-meta" data-lang="en">Saturday, 13 June 2025 · Horní Bečva</p>
+  </header>
+
+  <!-- PHOTOS -->
+  <div class="photos">
+    <img src="images/image5.png" alt="Anna and Tomáš" />
+    <img src="images/image4.png" alt="Anna and Tomáš" />
+    <img src="images/image1.png" alt="Anna and Tomáš" />
+  </div>
+
+  <!-- INTRO -->
+  <div class="block">
+    <p data-lang="cs">Po třech letech zásnub, mnoha předsvatebních cestách a dobrodružstvích plánujeme oslavit naši svatbu s přáteli a rodinou. Budeme rádi, pokud svatební den oslavíte s námi.</p>
+    <p data-lang="en">After three years of engagement, many pre-wedding trips and adventures, we are planning to celebrate our wedding with friends and family. We would love for you to celebrate this day with us.</p>
+  </div>
+
+  <!-- PROGRAM -->
+  <div class="block">
+    <h2 data-lang="cs">Program</h2>
+    <h2 data-lang="en">Schedule</h2>
+
+    <p data-lang="cs">Svatební rituál, program a hostina se odehrají na louce a v sadu okolo naší oblíbené roubenky v srdci Beskyd. Jste vítáni přidat se na jakoukoliv část.</p>
+    <p data-lang="en">The ceremony, programme and feast will take place on the meadow and in the orchard around our beloved log cabin in the heart of the Beskydy mountains. You are welcome to join any part of it.</p>
+
+    <div class="schedule">
+      <div class="schedule-row">
+        <span class="day" data-lang="cs">Pátek</span>
+        <span class="day" data-lang="en">Friday</span>
+        <span data-lang="cs">Přípravy na místě. Vítání s těmi, co již přijedou. Lehké občerstvení a povídání.</span>
+        <span data-lang="en">Set-up on site. Welcome for early arrivals. Light refreshments and good company.</span>
+      </div>
+      <div class="schedule-row">
+        <span class="day" data-lang="cs">Sobota</span>
+        <span class="day" data-lang="en">Saturday</span>
+        <span data-lang="cs">Svatební rituál se uskuteční kolem 14 hodiny. Bude následovat hostina a program až do večera.</span>
+        <span data-lang="en">Ceremony around 2 pm, followed by a feast and programme through the evening.</span>
+      </div>
+      <div class="schedule-row">
+        <span class="day" data-lang="cs">Neděle</span>
+        <span class="day" data-lang="en">Sunday</span>
+        <span data-lang="cs">Loučení, odjezdy a úklid.</span>
+        <span data-lang="en">Goodbyes, departures, and tidying up.</span>
+      </div>
+    </div>
+
+    <div class="note">
+      <span data-lang="cs">Čeká nás zahradní slavnost a dress code je tedy poměrně volný — budeme rádi, pokud si vezmete něco slavnostního, v čem vám ale zároveň nebude vadit sednout si na deku do trávy či jít do lesa na borůvky.</span>
+      <span data-lang="en">Dress code is relaxed but festive — wear something special you'd also be happy sitting on a blanket in the grass or picking blueberries in.</span>
+    </div>
+  </div>
+
+  <img src="images/image6.png" alt="Venue" class="inline-photo" />
+
+  <!-- LOGISTICS -->
+  <div class="block">
+    <h2 data-lang="cs">Místo a zázemí</h2>
+    <h2 data-lang="en">Venue & facilities</h2>
+
+    <p data-lang="cs">Celý program proběhne v okolí chaloupky, tedy hlavně v sadu, v zahradních stanech a též ve stodole či na zateplené půdě. Budeme především venku, ale připravíme se i na nepřízeň počasí. Na chaloupce je elektřina a výtečná pitná voda. Kromě suchých záchodů budou k dispozici toitoiky. Samotná chaloupka bude poskytovat primárně zázemí organizačnímu týmu a rodičům s malými dětmi.</p>
+    <p data-lang="en">The entire programme will take place around the cabin — mainly in the orchard, garden marquees, barn and insulated loft. We will be mostly outside, but we will prepare for bad weather too. The cabin has electricity and excellent drinking water. In addition to dry toilets, portable toilets will be available. The cabin itself will primarily serve as a base for the organising team and parents with small children.</p>
+  </div>
+
+  <!-- ACCOMMODATION -->
+  <div class="block">
+    <h2 data-lang="cs">Ubytování a doprava</h2>
+    <h2 data-lang="en">Accommodation & travel</h2>
+
+    <p data-lang="cs">Na Horní Bečvě je k dispozici mnoho možností ubytování, jeho výběr necháme na vás. K <a href="https://maps.app.goo.gl/dpi6XBJB66fMCfQe8" target="_blank">chaloupce</a> je to nejblíže od zastávek <em>Horní Bečva – rest. Na Bečvici</em> či <em>Horní Bečva – Přehrada</em>. Doporučujeme vybírat si ubytování v jejich blízkosti, jelikož budou pravděpodobně sloužit jako sběrné body.</p>
+    <p data-lang="en">There are many accommodation options in Horní Bečva — we leave the choice to you. The nearest stops to the <a href="https://maps.app.goo.gl/dpi6XBJB66fMCfQe8" target="_blank">cabin</a> are <em>Horní Bečva – rest. Na Bečvici</em> or <em>Horní Bečva – Přehrada</em>. We recommend choosing accommodation nearby, as these stops will likely serve as gathering points.</p>
+
+    <p data-lang="cs">V chaloupce je také možnost přespat ve spacáku na hezké zateplené půdě nebo ve stanu (máme i několik stanů k zapůjčení). Počítejte s tím, že chaloupka má omezené zázemí (např. bez sprch).</p>
+    <p data-lang="en">There is also the option to sleep at the cabin — in a sleeping bag in the lovely insulated loft or in a tent (we also have several tents to lend). Bear in mind that the cabin has limited facilities (e.g. no showers).</p>
+
+    <div class="note">
+      <span data-lang="cs">Bližší informace včetně dopravní koordinace a parkování poskytneme před svatbou. Pokud vám chybí jakákoliv informace, která by vám pomohla v plánování, neváhejte se ozvat.</span>
+      <span data-lang="en">More details including transport coordination and parking will follow before the wedding. If you are missing any information that would help you plan, don't hesitate to get in touch.</span>
+    </div>
+  </div>
+
+  <!-- RSVP -->
+  <div class="block">
+    <h2>RSVP</h2>
+    <p data-lang="cs">Prosím, vyplňte nám co nejdřív tento dotazník, pomůže nám to s plánováním.</p>
+    <p data-lang="en">Please fill in the form as soon as possible — it helps us with planning.</p>
+    <div style="text-align: center; margin-top: 20px;">
+      <a href="https://forms.gle/qhGnpppVp5erxeuS7" class="rsvp-btn" target="_blank" data-lang="cs">Vyplnit dotazník</a>
+      <a href="https://forms.gle/qhGnpppVp5erxeuS7" class="rsvp-btn" target="_blank" data-lang="en">Fill in the form</a>
+    </div>
+  </div>
+
+  <!-- GIFTS -->
+  <div class="block">
+    <h2 data-lang="cs">Dary</h2>
+    <h2 data-lang="en">Gifts</h2>
+    <p data-lang="cs">Nic neočekáváme :) Pokud chcete, budeme rádi, když nám dáte pouze něco symbolického nebo přispějete na svatební cestu.</p>
+    <p data-lang="en">We expect nothing. If you'd like to give something, a small symbolic gift or a contribution to our honeymoon would make us very happy.</p>
+  </div>
+
+  <!-- ABOUT THE CABIN -->
+  <div class="block">
+    <h2 data-lang="cs">O chaloupce</h2>
+    <h2 data-lang="en">About the cabin</h2>
+    <p data-lang="cs">Svatba se uskuteční u roubenky na Horní Bečvě. Je to místo, které nás provází naším vztahem, Tomáš tam s přáteli kosí roky chráněnou orchidejovou louku a nachází se v Annině rodném Valašsku. Děkujeme našim přátelům Křivonožkovým, že zde můžeme oslavu uspořádat.</p>
+    <p data-lang="en">The wedding will take place at a log cabin in Horní Bečva. It is a place that has been part of our relationship — Tomáš has been mowing a protected orchid meadow there with friends for years, and it is located in Anna's home region of Wallachia. Thank you to our friends the Křivonožka family for letting us hold the celebration here.</p>
+    <img src="images/image2.png" alt="The cabin" style="width:100%; margin-top:20px; display:block;" />
+  </div>
+
+  <!-- COORDINATION -->
+  <div class="block">
+    <h2 data-lang="cs">Koordinace</h2>
+    <h2 data-lang="en">Coordination</h2>
+    <p data-lang="cs">Děkujeme Radimovi, Malunce a Romaně za pomoc s organizací.</p>
+    <p data-lang="en">A big thank you to Radim, Malunka and Romana for helping organise everything.</p>
+    <p data-lang="cs">Pokud byste chtěli plánovat něco, o čem nemáme vědět, ozvěte se Radimovi: <a href="mailto:radim.pechal@gmail.com">radim.pechal@gmail.com</a>. Radim bude také pomáhat s koordinací předem a na místě a můžete se mu ozvat i s logistickými dotazy.</p>
+    <p data-lang="en">If you would like to plan something we shouldn't know about, contact Radim (<a href="mailto:radim.pechal@gmail.com">radim.pechal@gmail.com</a>). Radim will also be helping with coordination before and during the event, so feel free to reach out with any logistical questions too.</p>
+  </div>
+
+  <footer>
+    <span data-lang="cs">Anna &amp; Tomáš · 13. června 2025 · Horní Bečva</span>
+    <span data-lang="en">Anna &amp; Tomáš · 13 June 2025 · Horní Bečva</span>
+  </footer>
+
+  <script>
+    function setLang(lang) {
+      document.body.setAttribute('data-lang', lang);
+      document.getElementById('btn-cs').classList.toggle('active', lang === 'cs');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    }
+  </script>
+
+</body>
+</html>
